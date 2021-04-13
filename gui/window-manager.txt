@@ -1,0 +1,37 @@
+Window Manager Communication Standard
+=====================================
+
+The WMCS attempts to provide a flexible standard way of communicating with window managers, usable by most GUI libraries.
+
+The name of the API shall be `windowmanager` or `wm` on standards-compliant systems.
+
+The API shall be as follows:
+
+  - `wm.Canvas`:  The Canvas object.  This object shall represent a surface to which window content shall be rendered.  Where possible, this object shall be buffered.  It shall provide window controls in such a way as the Window-Manager shall see fit.  The following methods are at minimum required:
+    o `wm.Canvas.new(): Canvas`
+      > This function shall create and return to the user a new instance of the Canvas object.
+    o `wm.Canvas:setName(string)`
+      > This method shall set the window-title of the Canvas object on which it is called.  If the Window-Manager has no facility for window title-ing, this method shall silently fail.
+    o `wm.Canvas:setResizable(boolean)`
+    o `wm.Canvas:setMinimizeable(boolean)`
+    o `wm.Canvas:setMaximizeable(boolean)`
+    o `wm.Canvas:set(number, number, string, boolean)`
+    o `wm.Canvas:get(number, number): string, number, number`
+    o `wm.Canvas:fill(number, number, number, number, string)`
+    o `wm.Canvas:foreground([number]): number or Canvas`
+    o `wm.Canvas:background([number]): number or Canvas`
+
+    The following methods must be defined if necessary by the application, and initialized to stubs such that the Window-Manager will not raise an error if a method is not present.
+    o `wm.Canvas:refresh(gpu)`
+    o `wm.Canvas:resize(number, number)`
+    o `wm.Canvas:clickPress(number, number)`
+    o `wm.Canvas:clickDrag(number, number)`
+    o `wm.Canvas:clickRelease(number, number)`
+    o `wm.Canvas:keyPress(number, number)`
+    o `wm.Canvas:keyRelease(number, number)`
+    o `wm.Canvas:close()`
+
+
+  Where a method's return value or values are left unspecified, the object on which the method is called shall return itself.
+
+
