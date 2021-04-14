@@ -13,25 +13,45 @@ The API shall be as follows:
     o `wm.Canvas:setName(string)`
       > This method shall set the window-title of the Canvas object on which it is called.  If the Window-Manager has no facility for window title-ing, this method shall silently fail.
     o `wm.Canvas:setResizable(boolean)`
+      > This method shall set the Canvas's ability to be resized by the user to the programmer's desired state.
+    o `wm.Canvas:setMinDimensions(number, number)`
+      > This method shall set dimensions smaller than which it is not possible to resize a Canvas.
     o `wm.Canvas:setMinimizeable(boolean)`
+      > This method shall set the Canvas's ability to be minimized by the user to the programmer's desired state.
     o `wm.Canvas:setMaximizeable(boolean)`
+      > This method shall set whether the Canvas may be maximized.
     o `wm.Canvas:set(number, number, string, boolean)`
+      > This method shall behave identically to the `gpu` component's `set` method.
     o `wm.Canvas:get(number, number): string, number, number`
+      > This method shall behave identically to the `gpu` component's `get` method.
     o `wm.Canvas:fill(number, number, number, number, string)`
+      > This method shall behave identically to the `gpu` component's `fill` method.
     o `wm.Canvas:foreground([number]): number or Canvas`
+      > If called with a parameter, this method shall set the Canvas's foreground color to the said parameter, and return the Canvas object.  If called without a parameter, this method shall return the Canvas's current foreground color.
     o `wm.Canvas:background([number]): number or Canvas`
+      > If called with a parameter, this method shall set the Canvas's background color to the said parameter, and return the Canvas object.  If called without a parameter, this method shall return the Canvas's current background color.
+    o `wm.Canvas:setRefreshInterval(number)`
+      > This method shall specify the interval at which the Canvas shall be forcibly refreshed, even with no input from the user.
 
     The following methods must be defined if necessary by the application, and initialized to stubs such that the Window-Manager will not raise an error if a method is not present.
-    o `wm.Canvas:refresh(gpu)`
-    o `wm.Canvas:resize(number, number)`
-    o `wm.Canvas:clickPress(number, number)`
-    o `wm.Canvas:clickDrag(number, number)`
-    o `wm.Canvas:clickRelease(number, number)`
-    o `wm.Canvas:keyPress(number, number)`
-    o `wm.Canvas:keyRelease(number, number)`
-    o `wm.Canvas:close()`
-
+    o `wm.Canvas:refresh(): nil`
+      > This method shall be called on every window refresh.  It shall re-draw all necessary contents into the Canvas's screen-space.
+    o `wm.Canvas:resize(number, number): nil`
+      > This method shall be called upon the Canvas's being resized by the user.  Its arguments are the new width and height.
+    o `wm.Canvas:clickPress(number, number, number): nil`
+      > This method shall be called when the user presses a mouse button while the user's cursor is hovering over the Canvas.  Its arguments are the X-coordinate and Y-coordinate of the press, as well as the button being pressed.
+    o `wm.Canvas:clickDrag(number, number, number): nil`
+      > This method shall be called when the user drags their mouse over a Canvas subsequently to having clicked it.  Its arguments are identical to `:clickPress`.
+    o `wm.Canvas:clickRelease(number, number, number): nil`
+      > This method shall be called when the user releases their mouse subsequently to having clicked in a Canvas.  Its arguments are identical to `:clickPress`.
+    o `wm.Canvas:keyPress(number, number): nil`
+      > This method shall be called when the user presses a key while a Canvas is focused.  Its arguments are the character and the key's scan-code.
+    o `wm.Canvas:keyRelease(number, number): nil`
+      > This method shall be called when the user releases a key while a Canvas is focused.  Its arguments are identical to `:keyPress`.
+    o `wm.Canvas:close(): nil`
+      > This method shall be called when the user initiates a 'close' operation on a window.
 
   Where a method's return value or values are left unspecified, the object on which the method is called shall return itself.
 
-
+  - `wm.addWindow(Canvas)`
+    o This function shall register a Canvas as a Window-object to be displayed on the screen.
