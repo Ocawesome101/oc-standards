@@ -1,0 +1,9 @@
+OS Info
+=======
+
+All standards-compliant OSes shall provide information about themselves through the `osinfo` library.  This library shall have the following fields:
+
+  - `osinfo.hostname: string`: The current system hostname or 'localhost'.
+  - `osinfo.osname: string`: The name of the operating system.
+  - `osinfo.libraryPath`: Where libraries are generally stored.
+  - `osinfo.`
